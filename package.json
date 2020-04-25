@@ -4,12 +4,18 @@
   "description": "Proyecto Uptask con Node y MV",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "start":"nodemon ./index.js"
   },
   "repository": {
     "type": "git",
     "url": "git remote add origin https://github.com/Rodrigo031997/uptask.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
 }
