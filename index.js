@@ -7,6 +7,14 @@ const path = require('path');
 //Exportar la libreria BodyParser
 const bodyParser = require('body-parser');
 
+//crear la conexión a BD
+const db = require('./config/db');
+//importar el model
+require('./models/Proyectos');
+db.sync()
+   .then(()=>console.log('Conectado al Servidor'))
+   .catch(error => console.log(error));
+
 //crear una aplicación de express
 const app = express();
 
