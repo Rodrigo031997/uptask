@@ -2,6 +2,10 @@
 const Sequelize = require('sequelize');
 //importar la configuración de la base de datos
 const db = require('../config/db');
+//importar libreria de slug
+const slug = require('slug');
+//importar libreria shortid
+const shortid = require('shortid');
 
 //definir el modelo
 const Proyectos = db.define('proyectos',{
@@ -14,6 +18,14 @@ const Proyectos = db.define('proyectos',{
     nombre: Sequelize.STRING,
     url : Sequelize.STRING
         
+},{
+    hooks : {
+        beforeCreate(proyecto) {
+            const url = slug(proyecto.nombre).toLowerCase();
+            
+            proyecto.url = `${url}-${shortid.generate()}`;
+        },
+    }
 });
 
 module.exports = Proyectos;

@@ -1,3 +1,9 @@
+//importar el el modelo proyectos
+const Proyectos = require('../models/Proyectos');
+//importar el paquete slug
+const slug = require('slug');
+
+
 exports.proyectosHome = (req,res)=>{
     res.render('index',{
         nombrePagina: 'Proyectos'
@@ -10,7 +16,7 @@ exports.formularioProyecto = (req,res)=>{
     });
 }
 
-exports.nuevoProyecto = (req,res)=>{
+exports.nuevoProyecto = async (req,res)=>{
     //Acceder a los datos que el usuario envia
     // console.log(req.body);
 
@@ -28,6 +34,12 @@ exports.nuevoProyecto = (req,res)=>{
         res.render('nuevoProyecto',{
             nombrePagina:'Nuevo Proyecto',
             errores
-        });
+        })
+    }else{
+        //No hay errores
+        //Insertar eb la BD
+        const url = slug(nombre).toLowerCase();
+        const proyecto = Proyectos.create({ nombre,url });
+            res.redirect('/');
     }
 }
