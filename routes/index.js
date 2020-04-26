@@ -17,5 +17,7 @@ module.exports = function(){
     //Trim elimina los espacios en blanco, 
     //Escape sustituye los valores especiales
     ProyectosController.nuevoProyecto);
+    //Listar Proyecto
+    router.get('/proyectos/:url',ProyectosController.proyectoPorUrl);
     return router;
 }

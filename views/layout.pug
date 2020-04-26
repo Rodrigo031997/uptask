@@ -19,8 +19,9 @@ html(lang='en')
                 .panel.lista-proyectos
                     h2 Proyectos
                     ul#proyectos.proyectos
-                       li
-                         a(href="") Diseño de tienda Virtual
+                       if(proyectos.length)
+                            each proyecto in proyectos
+                               li 
+                                    a(href=`/proyectos/${proyecto.url}`)= proyecto.nombre
     
             block contenido 
-    

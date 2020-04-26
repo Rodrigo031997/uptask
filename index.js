@@ -7,9 +7,13 @@ const path = require('path');
 //Exportar la libreria BodyParser
 const bodyParser = require('body-parser');
 
+
+//helpers con algunas funciones
+const helpers = require('./helpers');
+
 //crear la conexión a BD
 const db = require('./config/db');
-//importar el model
+//importar el modelo
 require('./models/Proyectos');
 db.sync()
    .then(()=>console.log('Conectado al Servidor'))
@@ -28,6 +32,22 @@ app.set('view engine','pug');
 //Añadir la carpeta de las vistas 
 app.set('views', path.join(__dirname, './views'))
 
+//Pasar var dump a la aplicación
+app.use((req,res,next)=>{
+   //Locals te da la posibilidad de crear una funcion y podre utilizarla en cualquier otro de los archivos
+   res.locals.year = 2019;
+   res.locals.vardump = helpers.vardump;
+  next(); //Nex pasa al siguiente middlaware
+});
+
+//Aprendiendo Middlewar
+app.use(function (req, res, next) {
+   console.log('Time:', Date.now());
+   next();
+ });
+ 
+
+  
 //Habilitar BodyParser para leer datos del formulario
 app.use(bodyParser.urlencoded({extended:true}));
 
