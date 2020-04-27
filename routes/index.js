@@ -19,5 +19,17 @@ module.exports = function(){
     ProyectosController.nuevoProyecto);
     //Listar Proyecto
     router.get('/proyectos/:url',ProyectosController.proyectoPorUrl);
+    //Actualizar el Proyecto
+    router.get('/proyectos/editar/:id',ProyectosController.formularioEditar);
+    //Guardar cambios Proyecto
+    router.post('/nuevo-proyecto/:id',
+    body('nombre').not().isEmpty().trim().escape(),
+    //isEmpty revisa que la cadena de texto no venga vacia,
+    // Not niega que no este vacia la cadena, 
+    //Trim elimina los espacios en blanco, 
+    //Escape sustituye los valores especiales
+    ProyectosController.actualizarProyecto)
+
+
     return router;
 }
