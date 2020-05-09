@@ -30,6 +30,9 @@ module.exports = function(){
     //Escape sustituye los valores especiales
     ProyectosController.actualizarProyecto)
 
+    //eliminar proyecto
+    router.delete('/proyectos/:url',ProyectosController.eliminarProyecto);
+
 
     return router;
 }
