@@ -1,7 +1,7 @@
 //importar el el modelo proyectos
 const Proyectos = require('../models/Proyectos');
-//importar el paquete slug
-const slug = require('slug');
+//importar el modelo tareas
+const Tareas = require('../models/Tareas');
 
 
 exports.proyectosHome = async (req,res)=>{
@@ -60,6 +60,15 @@ exports.proyectoPorUrl = async (req,res,next)=>{
        }
     });
     const [proyectos, proyecto] = await Promise.all([proyectosPromise,proyectoPromise])
+
+   //Consultar tareas del proyecto actual
+     const tareas = await Tareas.findAll({
+       where: {
+           proyectoId : proyecto.id
+       }
+     });
+    
+
     //validar que tengas resultados en el controlador
     if (!proyecto) return next();
     
@@ -67,8 +76,9 @@ exports.proyectoPorUrl = async (req,res,next)=>{
     res.render('tareas',{
         nombrePagina: 'Tareas del Proyecto',
         proyecto,
-        proyectos
-    })
+        proyectos,
+        tareas
+    });
 }
 
 exports.formularioEditar = async (req,res)=>{
