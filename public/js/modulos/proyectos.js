@@ -40,6 +40,7 @@ if(btnEliminar){
                       icon:'error',
                       title:'Ups...',
                       text: 'Hubo un error. No se pudo eliminar el Proyecto'
+                      
                     })
                 })
             }
