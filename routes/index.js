@@ -37,6 +37,9 @@ module.exports = function(){
     //Guardar tareas 
     router.post('/proyectos/:url',TareasController.agregarTarea);
 
+    //Actualizar tarea
+    router.patch('/tareas/:id', TareasController.cambiarEstadoTarea);
+
 
     return router;
 }
