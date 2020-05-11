@@ -146,7 +146,3 @@ exports.eliminarProyecto = async (req, res, next) =>{
     }
     res.status(200).send('Proyecto Eliminado Correctamente');
 }
-
-exports.cambiarEstadoTarea = (req,res) =>{
-    res.send('todo bien..');
-}
