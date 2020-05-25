@@ -13,6 +13,9 @@ const session = require('express-session');
 
 const cookieParser = require('cookie-parser');
 
+//Exportar el archivo de configuración passport
+const passport = require('./config/passport');
+
 
 //helpers con algunas funciones
 const helpers = require('./helpers');
@@ -53,7 +56,11 @@ app.use(session({
    secret: 'supersecreto',
    resave: false,
    saveUninitialized: false
-}))
+}));
+
+//Arrancar la instancia de passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Pasar var dump a la aplicación
 app.use((req,res,next)=>{
