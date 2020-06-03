@@ -5,8 +5,9 @@ const Tareas = require('../models/Tareas');
 
 
 exports.proyectosHome = async (req,res)=>{
+    const usuarioId = res.locals.usuario.id;
     //Mostrar los registros de la BD en la vista
-    const proyectos = await Proyectos.findAll();
+    const proyectos = await Proyectos.findAll({where: {usuarioId}});
     res.render('index',{
         nombrePagina: 'Proyectos',
         proyectos
@@ -14,7 +15,9 @@ exports.proyectosHome = async (req,res)=>{
 }
 
 exports.formularioProyecto = async (req,res)=>{
-    const proyectos = await Proyectos.findAll();
+    const usuarioId = res.locals.usuario.id;
+    //Mostrar los registros de la BD en la vista
+    const proyectos = await Proyectos.findAll({where: {usuarioId}});
     res.render('nuevoProyecto',{
       nombrePagina:'Nuevo Proyecto',
       proyectos
@@ -22,7 +25,9 @@ exports.formularioProyecto = async (req,res)=>{
 }
 
 exports.nuevoProyecto = async (req,res)=>{
-    const proyectos = await Proyectos.findAll();
+    const usuarioId = res.locals.usuario.id;
+    //Mostrar los registros de la BD en la vista
+    const proyectos = await Proyectos.findAll({where: {usuarioId}});
     //Acceder a los datos que el usuario envia
     // console.log(req.body);
 
@@ -45,18 +50,22 @@ exports.nuevoProyecto = async (req,res)=>{
         })
     }else{
         //No hay errores
-        //Insertar eb la BD
+        //Insertar en la BD
+        const usuarioId = res.locals.usuario.id;
         //hooks es una funcion que corre en determinado tiempo
-        await Proyectos.create({ nombre });
+        await Proyectos.create({ nombre, usuarioId });
             res.redirect('/');
     }
 }
 
 exports.proyectoPorUrl = async (req,res,next)=>{
-    const proyectosPromise = Proyectos.findAll();
+    const usuarioId = res.locals.usuario.id;
+    //Mostrar los registros de la BD en la vista
+    const proyectosPromise  = Proyectos.findAll({where: {usuarioId}});
     const proyectoPromise = Proyectos.findOne({
        where: {
-           url: req.params.url
+           url: req.params.url,
+           usuarioId
        }
     });
     const [proyectos, proyecto] = await Promise.all([proyectosPromise,proyectoPromise])
@@ -82,11 +91,13 @@ exports.proyectoPorUrl = async (req,res,next)=>{
 }
 
 exports.formularioEditar = async (req,res)=>{
-    const proyectosPromise =  Proyectos.findAll();
-
+    const usuarioId = res.locals.usuario.id;
+    //Mostrar los registros de la BD en la vista
+    const proyectosPromise = Proyectos.findAll({where: {usuarioId}});
     const proyectoPromise =  Proyectos.findOne({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            usuarioId
         }
     });
     const [proyectos, proyecto] = await Promise.all([proyectosPromise,proyectoPromise]);
@@ -102,7 +113,9 @@ exports.formularioEditar = async (req,res)=>{
 
 exports.actualizarProyecto = async (req, res) => {
 
-    const proyectos = await Proyectos.findAll();
+    const usuarioId = res.locals.usuario.id;
+    //Mostrar los registros de la BD en la vista
+    const proyectos = await Proyectos.findAll({where: {usuarioId}});
 
     // Enviar a la consola lo que el usuario escriba.
     // console.log(req.body);

@@ -64,10 +64,13 @@ app.use(passport.session());
 
 //Pasar var dump a la aplicación
 app.use((req,res,next)=>{
+   console.log(req.user);
    //Locals te da la posibilidad de crear una funcion y podre utilizarla en cualquier otro de los archivos
    res.locals.vardump = helpers.vardump;
    res.locals.mensajes = req.flash();
-  next(); //Nex pasa al siguiente middlaware
+   res.locals.usuario = {...req.user} || null;
+   console.log(res.locals.usuario);
+   next(); //Nex pasa al siguiente middlaware
 });
 
 //Aprendiendo Middlewar
