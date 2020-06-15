@@ -33,7 +33,10 @@ const Usuarios = db.define('usuarios',{
         msg:'El password no puede ir vacio'
       }
     }
-
+  },
+  activo:{
+    type:Sequelize.INTEGER,
+    defaultValue: 0
   },
   token: Sequelize.STRING,
   expiracion: Sequelize.DATE  

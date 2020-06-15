@@ -77,6 +77,9 @@ module.exports = function(){
     //Guardar Usuario
     router.post('/crear-cuenta',UsuariosController.crearCuenta);
 
+    //Confirmar cuenta 
+    router.get('/confirmar/:correo',UsuariosController.confirmarCuenta);
+
     //Iniciar Sesión
     router.get('/iniciar-sesion',UsuariosController.formIniciarSesion);
 
